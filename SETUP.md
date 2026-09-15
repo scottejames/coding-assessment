@@ -8,8 +8,13 @@ yet** — `README.md` in this repo and in each `-starter` repo still
 describe the local install/clone flow only, on purpose, until we're
 happy with this.
 
-**Status: rolled out to `pair-the-numbers-starter` only**, as a first
-test. Nothing else has been touched.
+**Status: rolled out to all five `-starter` repos** — the config
+below, validated first on `pair-the-numbers-starter`, is now also on
+`split-the-playlist-starter`, `escape-the-vault-starter`,
+`break-the-cipher-starter`, and `bridge-the-islands-starter`, each
+marked as a template repository the same way. `README.md` in this repo
+and in each `-starter` repo still only describe the local install/clone
+flow, on purpose, until this is presented to students for real.
 
 ---
 
@@ -236,10 +241,10 @@ Could you try these end-to-end and we'll note the results here?
 
 ## Next steps
 
-- [ ] Run through the testing checklist above
-- [ ] Decide whether to copy `.devcontainer/devcontainer.json` to the
-      other four `-starter` repos, and mark each as a template
-      repository the same way (`gh repo edit <repo> --template`)
+- [x] Run through the testing checklist above
+- [x] Copy `.devcontainer/devcontainer.json` to the other four
+      `-starter` repos, and mark each as a template repository the same
+      way (`gh repo edit <repo> --template`)
 - [ ] Decide how (and whether) to present this in each repo's
       `README.md` — likely as the recommended fast path, with the
       existing local-install instructions kept as a fallback for anyone
