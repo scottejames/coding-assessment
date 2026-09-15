@@ -47,6 +47,12 @@ first.
   terminal — an immediate, visible confirmation that both languages are
   actually there, before the student's typed a single line of their
   own.
+- **Copilot turned off by default.** Since the assessment explicitly
+  bans AI assistance, we set `github.copilot.enable` to `false` for all
+  languages as a workspace setting, and list `github.copilot` /
+  `github.copilot-chat` as "unwanted recommendations" so Codespaces
+  doesn't suggest installing them. **This is a default, not a lock** —
+  see the caveat below.
 
 **2. `pair-the-numbers-starter` is now marked as a GitHub "template
 repository"** (Settings → General → Template repository, already
@@ -91,9 +97,24 @@ back to ours. This is the repo you'll work in for everything below.
 **Step 3 — do the problem.**
 
 Open the solution file named in `README.md` (e.g.
-`python/pair_numbers.py`), write your solution, and run
-`./scripts/test.sh` in the built-in terminal as you go — exactly as
-described in that repo's own `README.md`.
+`python/pair_numbers.py`) and write your solution there.
+
+Always run the provided scripts from the built-in terminal — this is
+the one thing guaranteed to work the same for everyone, in any editor,
+with nothing to configure:
+
+```bash
+cd python                # or java
+./scripts/compile.sh      # sanity-checks your code
+./scripts/test.sh          # runs the full test suite
+./scripts/run.sh            # runs the demo on one example case
+```
+
+If you'd rather wire up VS Code's own Run/Debug button, a
+`launch.json`, or similar, nothing stops you — but that's on you to set
+up. We're deliberately **not** giving instructions for that: the
+scripts above already work out of the box in every repo, and they're
+exactly what each `README.md`'s "Definition of done" checks against.
 
 **Step 4 — "submit" it.**
 
@@ -112,6 +133,34 @@ letting us know it's there:
      add the GitHub username you were given, **or**
    - just reply/send us the repo's URL and we'll request access.
 3. That's it — nothing to build, zip, or upload separately.
+
+## Troubleshooting: codespace seems stuck / not doing anything
+
+The *first* build on a brand-new repo genuinely can take a couple of
+minutes — our devcontainer installs a full JDK **and** Python from
+scratch on a bare Ubuntu image, nothing pre-cached. A blank-looking
+screen for 2–4 minutes isn't necessarily broken. Before assuming it's
+stuck:
+
+- **Check `github.com/codespaces`** in a second tab — it lists every
+  codespace you own with a live status (`Starting`, `Available`,
+  `Failed`, ...). If it's been `Starting` for a very long time, that's
+  a real signal, not just a slow build.
+- **Look for a build log.** The loading page usually has a small
+  disclosure arrow or a "View creation log"-style link next to the
+  loading message — expanding it shows the actual container build
+  output (pulling the image, installing each devcontainer feature,
+  running `postCreateCommand`), instead of a bare spinner with nothing
+  to look at.
+- **Subsequent builds are much faster.** GitHub caches the built
+  container image per repo, so only the *first* codespace on a given
+  repo pays the full JDK+Python install cost. Deleting and recreating a
+  codespace on the same repo should be quick the second time.
+- **If it's genuinely stuck** (status shows `Failed`, or it's sitting
+  with zero log movement for 10+ minutes): delete the codespace from
+  `github.com/codespaces` and create a fresh one. If that keeps
+  happening, it's worth us revisiting the devcontainer config itself
+  rather than treating it as a one-off.
 
 ## Testing checklist
 
@@ -144,6 +193,15 @@ Could you try these end-to-end and we'll note the results here?
   until they verify (e.g. add a phone number). Nothing we can route
   around centrally — worth a line in candidate-facing instructions once
   we get there.
+- **The Copilot setting is a default, not an enforcement mechanism.**
+  It stops Copilot suggesting anything *unless a student deliberately
+  re-enables it* (flipping the setting back, or installing a different
+  AI extension entirely) — there's no way to hard-block extensions in a
+  codespace someone controls. The actual enforcement is still the
+  policy already in `README.md` (no AI tools, we review the code
+  together) — this setting just removes the "it was on by default, I
+  didn't think about it" excuse, it doesn't replace the honesty
+  requirement.
 
 ## Next steps
 
