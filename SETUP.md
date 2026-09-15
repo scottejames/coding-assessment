@@ -47,18 +47,15 @@ first.
   terminal — an immediate, visible confirmation that both languages are
   actually there, before the student's typed a single line of their
   own.
-- **Copilot actively uninstalled, not just discouraged.** Our first
-  attempt here — listing `github.copilot` / `github.copilot-chat` as
-  "unwanted recommendations" — turned out to do nothing, because
-  Copilot Chat arrived pre-installed anyway (tied to the account
-  opening the codespace, e.g. GitHub's free Copilot tier, not to
-  anything in this repo — see caveat below). The actual fix is
-  prefixing both extension IDs with `-` in the `extensions` list, which
-  tells Codespaces to **uninstall** them once the container finishes
-  building, every time, with nothing for a student to click. We also
-  keep `github.copilot.enable: false` as a workspace setting, as a
-  second layer in case the extension is present at all before removal
-  runs.
+- **Copilot: mitigated on the container side, confirmed unreachable on
+  the client side.** Two settings are in place — `github.copilot.enable:
+  false` (turns off inline suggestions once the workspace connects) and
+  `-github.copilot` / `-github.copilot-chat` in the `extensions` list
+  (uninstalls either extension from the *container* if present). Both
+  are real and both still apply for what they cover. But the "Build
+  with Agent" Chat panel a student actually sees turned out to be
+  neither of these — see "Known caveats" below for how we confirmed
+  that and why nothing in this repo can reach it.
 
 **2. `pair-the-numbers-starter` is now marked as a GitHub "template
 repository"** (Settings → General → Template repository, already
@@ -199,43 +196,43 @@ Could you try these end-to-end and we'll note the results here?
   until they verify (e.g. add a phone number). Nothing we can route
   around centrally — worth a line in candidate-facing instructions once
   we get there.
-- **Where the pre-installed Copilot Chat actually came from.** It's not
-  something this repo adds — GitHub now provisions a free tier of
-  Copilot to personal accounts by default, and Codespaces installs
-  Copilot Chat automatically for any account that has it enabled,
-  regardless of what the repo's own `devcontainer.json` asks for. Confirmed
-  in testing: it showed up despite our first-attempt setting, because
-  that setting can only suppress a *recommendation*, not an install
-  already triggered by account-level entitlement.
-- **The uninstall-on-build fix is a strong default, still not an
-  absolute lock.** The `-github.copilot` / `-github.copilot-chat`
-  entries remove the extension every time a codespace builds, with
-  nothing for a student to click — but a student could still
-  reinstall it themselves afterward (or install a different AI
-  extension entirely), and there can be a brief flash of the extension
-  during the initial build before removal runs. There's no way to
-  hard-block a determined user from installing *something* in an
-  environment they fully control. The actual enforcement is still the
-  policy already in `README.md` (no AI tools, we review the code
-  together) — this setting removes the "it was just on by default, I
-  didn't think about it" excuse, it doesn't replace the honesty
-  requirement.
-- **Moving to a GitHub Organization would NOT fix this — checked, and
-  ruled out.** It's tempting to assume an org-level Copilot policy
-  could force this off for anyone using Codespaces against our repos.
-  It can't: per GitHub's own docs, a user is only governed by an
-  org/enterprise's Copilot policy if they hold a **Copilot licence
-  issued by that org** — i.e. a paid seat you've assigned to an actual
-  member. A candidate is never a member of our org and holds no licence
-  from us, so they'd fall back entirely to their *own* personal
-  account's Copilot settings regardless of who owns the repo. There is
-  genuinely no GitHub-provided mechanism, at any cost or org structure,
-  to force this off for someone else's account in an environment they
-  fully control — which, stepping back, is also true of local
-  development: nothing stops a candidate from using Copilot on their
-  own laptop either. The uninstall-on-build default plus the stated
-  policy in `README.md` is the actual ceiling here, not a stopgap on
-  the way to something stronger.
+- **The "Build with Agent" Chat panel is confirmed out of reach —
+  not just undocumented, actually tested.** We watched it render fully
+  in the right-hand panel *while the status bar still read "Setting up
+  remote connection: Building codespace..."* — before the container had
+  even finished being created. That's conclusive: `devcontainer.json`
+  only configures what happens *inside* the remote container, so
+  anything showing up before that container exists cannot be something
+  it controls. This panel is part of the local VS Code-for-the-web
+  client shell GitHub serves the moment the browser tab opens, tied to
+  the account that opened it (GitHub now gives every personal account a
+  free Copilot tier by default), not to this repo or its config at all.
+  Uninstalling `github.copilot-chat` on the container side — which we
+  do — has no way to reach a panel that isn't coming from the
+  container.
+- **What our settings *do* still achieve.** `github.copilot.enable:
+  false` genuinely turns off inline ghost-text suggestions once the
+  workspace connects, and the `-github.copilot` / `-github.copilot-chat`
+  entries genuinely remove either extension if it's present on the
+  container side. Both are real, both stay in place — they just don't
+  touch the client-shell Chat panel, which is a different thing
+  entirely from what either setting governs.
+- **Moving to a GitHub Organization would not have fixed this either —
+  checked, and ruled out.** A separate dead end, for a separate reason:
+  per GitHub's own docs, a user is only governed by an org/enterprise's
+  Copilot policy if they hold a **Copilot licence issued by that org**
+  — a paid seat assigned to an actual member. A candidate is never a
+  member of our org and holds no licence from us, so they'd fall back
+  entirely to their own personal account's Copilot settings regardless
+  of who owns the repo.
+- **Bottom line.** There is no GitHub-provided mechanism, at any cost
+  or repo/org structure, that can force this off for someone else's
+  account in an environment they fully control — which, stepping back,
+  is also true of local development: nothing stops a candidate running
+  Copilot on their own laptop either. The settings above are the actual
+  ceiling, not a stopgap on the way to something stronger. The real
+  enforcement is, and was always going to be, the policy already in
+  `README.md` (no AI tools, we review the code together).
 
 ## Next steps
 
