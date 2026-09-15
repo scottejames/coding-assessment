@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.svg" alt="Coding Assessment" width="760">
+</p>
+
 # Coding Assessment
 
 Welcome! This repo is the index for our take-home coding assessment. Each
