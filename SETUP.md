@@ -62,15 +62,16 @@ forking.
 
 **Step 1 — get your own copy (not a fork).**
 
-1. Go to `https://github.com/scottejames/pair-the-numbers-starter`.
-2. Near the top of the page, next to the **Code** button, there's a
-   green **Use this template** button (this only appears because we
-   switched the setting above — it's *not* the same button as "Fork").
-   Click it, then click **Create a new repository** in the dropdown.
-3. On the form that appears: leave "Owner" as your own account, type a
+1. Go directly to:
+   `https://github.com/scottejames/pair-the-numbers-starter/generate`
+   (this is GitHub's direct link for "create a repository from this
+   template" — there is a **Use this template** button on the repo
+   page too, but it isn't next to **Code** where you'd expect, so the
+   direct link is the more reliable thing to give students).
+2. On the form that appears: leave "Owner" as your own account, type a
    repository name (anything — e.g. `my-pair-the-numbers-solution`),
    and — importantly — select **Private**.
-4. Click the green **Create repository** button.
+3. Click the green **Create repository** button.
 
 You now have your own repository, e.g.
 `github.com/<your-username>/my-pair-the-numbers-solution`, containing
@@ -116,8 +117,11 @@ letting us know it's there:
 
 Could you try these end-to-end and we'll note the results here?
 
-- [ ] "Use this template" → "Create a new repository" actually produces
-      a private, fork-free repo under your account
+- [x] The `/generate` link → "Create a new repository" actually
+      produces a private, fork-free repo under your account (confirmed
+      — the on-page "Use this template" button exists but isn't next to
+      "Code" where you'd expect it, so we're using the direct link
+      instead)
 - [ ] Codespace builds on *that* new repo without errors
 - [ ] `postCreateCommand` output shows a real Python version and a real
       Java version, no errors
