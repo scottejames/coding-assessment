@@ -220,15 +220,22 @@ Could you try these end-to-end and we'll note the results here?
   together) — this setting removes the "it was just on by default, I
   didn't think about it" excuse, it doesn't replace the honesty
   requirement.
-- **A genuinely centralized block would mean moving to a GitHub
-  Organization.** Copilot policies (blocking Copilot entirely for
-  anyone using Codespaces against a given repo, regardless of their own
-  account's entitlement) are an org-level setting, not something a
-  personal-account-owned repo like these can impose on other people's
-  accounts. If a hard, centrally-enforced block ever becomes a real
-  requirement rather than a strong default, that's the option — a
-  bigger structural change (all five `-starter` repos would need to
-  move under an org), not something to do as a side effect of this.
+- **Moving to a GitHub Organization would NOT fix this — checked, and
+  ruled out.** It's tempting to assume an org-level Copilot policy
+  could force this off for anyone using Codespaces against our repos.
+  It can't: per GitHub's own docs, a user is only governed by an
+  org/enterprise's Copilot policy if they hold a **Copilot licence
+  issued by that org** — i.e. a paid seat you've assigned to an actual
+  member. A candidate is never a member of our org and holds no licence
+  from us, so they'd fall back entirely to their *own* personal
+  account's Copilot settings regardless of who owns the repo. There is
+  genuinely no GitHub-provided mechanism, at any cost or org structure,
+  to force this off for someone else's account in an environment they
+  fully control — which, stepping back, is also true of local
+  development: nothing stops a candidate from using Copilot on their
+  own laptop either. The uninstall-on-build default plus the stated
+  policy in `README.md` is the actual ceiling here, not a stopgap on
+  the way to something stronger.
 
 ## Next steps
 
