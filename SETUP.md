@@ -23,14 +23,14 @@ with just a GitHub account and a browser gets a real VS Code, with the
 right language tools already installed, running against the repo
 already checked out — no install step at all.
 
-It doesn't remove *every* step — they still need to redirect their work
-to a private repo of their own before pushing (see below) — but that's
-now a couple of terminal commands inside the browser, not a local
-toolchain to assemble first.
+It doesn't remove *every* step — they still need their own copy of the
+repo, and a way to hand the finished result back to us — but both of
+those are now a couple of clicks, not a local toolchain to assemble
+first.
 
 ## What we added
 
-`.devcontainer/devcontainer.json` in `pair-the-numbers-starter`:
+**1. `.devcontainer/devcontainer.json` in `pair-the-numbers-starter`:**
 
 - **Base image:** `mcr.microsoft.com/devcontainers/base:ubuntu` — a
   small, generic Ubuntu image, not the much larger "universal" image
@@ -48,42 +48,85 @@ toolchain to assemble first.
   actually there, before the student's typed a single line of their
   own.
 
-## The student flow this enables
+**2. `pair-the-numbers-starter` is now marked as a GitHub "template
+repository"** (Settings → General → Template repository, already
+switched on — done via `gh repo edit ... --template`). This is what
+makes the "no forking" flow below possible: a repository created *from*
+a template has **no fork relationship to the original at all** — no
+shared history, no "forked from" label, and critically, **it can be
+private even though the template itself is public.** A plain GitHub
+fork can't do that last part, which is why we're using this instead of
+forking.
 
-1. Open the repo on github.com → **Code** button → **Codespaces** tab →
-   **Create codespace on master**. (Deliberately *not* forking first —
-   forks of a public repo are always public, which would make the
-   student's solution visible to everyone. Creating a codespace
-   directly on our public repo works fine without write access, and
-   nudges them straight into step 3 below.)
-2. Wait for the container to build (first time only — a minute or so).
-   A real VS Code opens in the browser tab, already showing the repo.
-3. In the built-in terminal, redirect to a repo of their own — same
-   commands as the local flow, just run here instead:
-   ```bash
-   git remote remove origin
-   gh repo create my-pair-the-numbers-solution --private --source=. --remote=origin --push
-   ```
-   (`gh` comes preinstalled in every codespace by default, so this is
-   actually simpler here than on a fresh local machine.)
-4. Implement the solution, run `./scripts/test.sh` in the terminal, and
-   commit/push from VS Code's Source Control panel (or the terminal) as
-   normal.
+## The exact student flow
+
+**Step 1 — get your own copy (not a fork).**
+
+1. Go to `https://github.com/scottejames/pair-the-numbers-starter`.
+2. Near the top of the page, next to the **Code** button, there's a
+   green **Use this template** button (this only appears because we
+   switched the setting above — it's *not* the same button as "Fork").
+   Click it, then click **Create a new repository** in the dropdown.
+3. On the form that appears: leave "Owner" as your own account, type a
+   repository name (anything — e.g. `my-pair-the-numbers-solution`),
+   and — importantly — select **Private**.
+4. Click the green **Create repository** button.
+
+You now have your own repository, e.g.
+`github.com/<your-username>/my-pair-the-numbers-solution`, containing
+everything from the starter repo, fully private, with no connection
+back to ours. This is the repo you'll work in for everything below.
+
+**Step 2 — open it in a codespace.**
+
+1. On *your new repo's* page, click the green **Code** button.
+2. In the dropdown, click the **Codespaces** tab.
+3. Click **Create codespace on master**.
+4. Wait for it to build (a minute or so, first time only). A full VS
+   Code opens right in the browser tab, already showing your files,
+   with a terminal at the bottom printing the Python/Java version check
+   from `postCreateCommand`.
+
+**Step 3 — do the problem.**
+
+Open the solution file named in `README.md` (e.g.
+`python/pair_numbers.py`), write your solution, and run
+`./scripts/test.sh` in the built-in terminal as you go — exactly as
+described in that repo's own `README.md`.
+
+**Step 4 — "submit" it.**
+
+There's no separate submission step or portal — submitting *is*
+pushing your commits to the private repo you created in Step 1, then
+letting us know it's there:
+
+1. In VS Code's left sidebar, click the **Source Control** icon (looks
+   like three connected dots/branches). Stage your changes (the `+`
+   next to each file, or "Stage All Changes"), type a commit message,
+   click the ✓ **Commit** button, then click **Sync Changes** (this
+   does the push). Or just use the terminal: `git add .`, `git commit
+   -m "..."`, `git push` — whichever you prefer.
+2. Since the repo is **private**, we can't see it until you either:
+   - go to your repo's **Settings → Collaborators → Add people**, and
+     add the GitHub username you were given, **or**
+   - just reply/send us the repo's URL and we'll request access.
+3. That's it — nothing to build, zip, or upload separately.
 
 ## Testing checklist
 
-Could you try these on `pair-the-numbers-starter` and we'll note the
-results here?
+Could you try these end-to-end and we'll note the results here?
 
-- [ ] Open a codespace on `pair-the-numbers-starter` from github.com
+- [ ] "Use this template" → "Create a new repository" actually produces
+      a private, fork-free repo under your account
+- [ ] Codespace builds on *that* new repo without errors
 - [ ] `postCreateCommand` output shows a real Python version and a real
       Java version, no errors
 - [ ] `cd python && ./scripts/test.sh` runs and prints `NOT IMPLEMENTED`
       for all 19 cases (i.e. it *runs*, we're not checking it passes)
 - [ ] `cd java && ./scripts/test.sh` compiles and runs likewise
-- [ ] The `git remote remove origin` + `gh repo create ... --push` step
-      actually lands the code in a new repo under your account
-- [ ] Note how long the first build took
+- [ ] A commit made in the codespace successfully pushes back to your
+      new repo (check it shows up on github.com)
+- [ ] Note how long the first container build took
 - [ ] Note whether the Python/Java VS Code extensions were active
       without any manual prompt
 
@@ -102,7 +145,8 @@ results here?
 
 - [ ] Run through the testing checklist above
 - [ ] Decide whether to copy `.devcontainer/devcontainer.json` to the
-      other four `-starter` repos
+      other four `-starter` repos, and mark each as a template
+      repository the same way (`gh repo edit <repo> --template`)
 - [ ] Decide how (and whether) to present this in each repo's
       `README.md` — likely as the recommended fast path, with the
       existing local-install instructions kept as a fallback for anyone
