@@ -41,13 +41,13 @@ below for exactly how.
 Here's the full set, roughly ordered from warm-up to hardest. Remember —
 you only need to attempt one.
 
-| # | Problem | Difficulty | What it's really testing |
+| # | Problem | Difficulty | What it's like |
 |---|---|---|---|
-| 1 | [Pair the Numbers](https://github.com/scottejames/pair-the-numbers-starter) | **Easiest** — warm-up | Hash map lookups, replacing an obvious-but-slow brute-force scan. A good confidence check that you can read a spec and structure clean code, nothing more. |
-| 2 | [Split the Playlist](https://github.com/scottejames/split-the-playlist-starter) | **Easy** — warm-up | Binary search on the answer, paired with a greedy feasibility check. Still approachable, but the "obvious" back-of-envelope answer is subtly wrong. |
-| 3 | [Escape the Vault](https://github.com/scottejames/escape-the-vault-starter) | **Hard** | Shortest-path search on a grid, complicated by keys and doors — a step up in state-tracking, not just pathfinding. |
-| 4 | [Break the Cipher](https://github.com/scottejames/break-the-cipher-starter) | **Hard** | Dynamic programming over a string, with a real trap for anyone reaching for a greedy or brute-force-recursive shortcut. |
-| 5 | [Bridge the Islands](https://github.com/scottejames/bridge-the-islands-starter) | **Hard** | Union-find (disjoint set union), including the path-compression / union-by-size details that matter once the input gets large. |
+| 1 | [Pair the Numbers](https://github.com/scottejames/pair-the-numbers-starter) | **Easiest** — warm-up | Find two numbers in a list that add up to a target. Easy to picture — the challenge is doing it without checking every possible pair one by one. |
+| 2 | [Split the Playlist](https://github.com/scottejames/split-the-playlist-starter) | **Easy** — warm-up | Split a list into chunks as evenly as you can. Simple to picture, but the "obvious" quick-maths answer turns out to be wrong — a nice lesson in checking your assumptions. |
+| 3 | [Escape the Vault](https://github.com/scottejames/escape-the-vault-starter) | **Hard** | Find a path through a grid, picking up keys along the way to unlock doors. Fun to visualise on paper — the tricky part is keeping track of what you've collected so far. |
+| 4 | [Break the Cipher](https://github.com/scottejames/break-the-cipher-starter) | **Hard** | Split a run-on string back into real words using a dictionary. Looks simple at first glance, but the straightforward way to try it can quietly run forever on bigger inputs. |
+| 5 | [Bridge the Islands](https://github.com/scottejames/bridge-the-islands-starter) | **Hard** | Keep track of which islands end up connected as bridges get added over time. Conceptually simple, but needs a bit of care once there are a lot of islands. |
 
 A couple of things worth knowing going in:
 
