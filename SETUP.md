@@ -47,12 +47,18 @@ first.
   terminal — an immediate, visible confirmation that both languages are
   actually there, before the student's typed a single line of their
   own.
-- **Copilot turned off by default.** Since the assessment explicitly
-  bans AI assistance, we set `github.copilot.enable` to `false` for all
-  languages as a workspace setting, and list `github.copilot` /
-  `github.copilot-chat` as "unwanted recommendations" so Codespaces
-  doesn't suggest installing them. **This is a default, not a lock** —
-  see the caveat below.
+- **Copilot actively uninstalled, not just discouraged.** Our first
+  attempt here — listing `github.copilot` / `github.copilot-chat` as
+  "unwanted recommendations" — turned out to do nothing, because
+  Copilot Chat arrived pre-installed anyway (tied to the account
+  opening the codespace, e.g. GitHub's free Copilot tier, not to
+  anything in this repo — see caveat below). The actual fix is
+  prefixing both extension IDs with `-` in the `extensions` list, which
+  tells Codespaces to **uninstall** them once the container finishes
+  building, every time, with nothing for a student to click. We also
+  keep `github.copilot.enable: false` as a workspace setting, as a
+  second layer in case the extension is present at all before removal
+  runs.
 
 **2. `pair-the-numbers-starter` is now marked as a GitHub "template
 repository"** (Settings → General → Template repository, already
@@ -193,15 +199,36 @@ Could you try these end-to-end and we'll note the results here?
   until they verify (e.g. add a phone number). Nothing we can route
   around centrally — worth a line in candidate-facing instructions once
   we get there.
-- **The Copilot setting is a default, not an enforcement mechanism.**
-  It stops Copilot suggesting anything *unless a student deliberately
-  re-enables it* (flipping the setting back, or installing a different
-  AI extension entirely) — there's no way to hard-block extensions in a
-  codespace someone controls. The actual enforcement is still the
+- **Where the pre-installed Copilot Chat actually came from.** It's not
+  something this repo adds — GitHub now provisions a free tier of
+  Copilot to personal accounts by default, and Codespaces installs
+  Copilot Chat automatically for any account that has it enabled,
+  regardless of what the repo's own `devcontainer.json` asks for. Confirmed
+  in testing: it showed up despite our first-attempt setting, because
+  that setting can only suppress a *recommendation*, not an install
+  already triggered by account-level entitlement.
+- **The uninstall-on-build fix is a strong default, still not an
+  absolute lock.** The `-github.copilot` / `-github.copilot-chat`
+  entries remove the extension every time a codespace builds, with
+  nothing for a student to click — but a student could still
+  reinstall it themselves afterward (or install a different AI
+  extension entirely), and there can be a brief flash of the extension
+  during the initial build before removal runs. There's no way to
+  hard-block a determined user from installing *something* in an
+  environment they fully control. The actual enforcement is still the
   policy already in `README.md` (no AI tools, we review the code
-  together) — this setting just removes the "it was on by default, I
+  together) — this setting removes the "it was just on by default, I
   didn't think about it" excuse, it doesn't replace the honesty
   requirement.
+- **A genuinely centralized block would mean moving to a GitHub
+  Organization.** Copilot policies (blocking Copilot entirely for
+  anyone using Codespaces against a given repo, regardless of their own
+  account's entitlement) are an org-level setting, not something a
+  personal-account-owned repo like these can impose on other people's
+  accounts. If a hard, centrally-enforced block ever becomes a real
+  requirement rather than a strong default, that's the option — a
+  bigger structural change (all five `-starter` repos would need to
+  move under an org), not something to do as a side effect of this.
 
 ## Next steps
 
