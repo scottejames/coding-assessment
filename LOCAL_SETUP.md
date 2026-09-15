@@ -11,7 +11,10 @@ install anything and just work in your browser instead, see
 ## Tools you'll need
 
 **One** of Python or Java (your choice, you don't need both), plus
-**Git**.
+**Git** — and a **GitHub account**, free, sign up at
+[github.com/join](https://github.com/join) if you don't already have
+one. You'll need it to create your own private repo and push your
+solution to it.
 
 **If you already have these installed, skip straight to "Getting your
 own copy" below.** Likewise, if you'd rather install any of these a

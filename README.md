@@ -34,6 +34,11 @@ You'll work in **either Python or Java** (your choice — both are graded
 identically), and push your solution to a repository of your own — see
 below for exactly how.
 
+**One prerequisite either way: you'll need a GitHub account.** It's
+free — sign up at [github.com/join](https://github.com/join) if you
+don't already have one. Both setup options below use it to store and
+submit your solution.
+
 ---
 
 ## The problems

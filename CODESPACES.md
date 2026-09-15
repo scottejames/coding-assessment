@@ -10,7 +10,12 @@ already set up. It's a genuine alternative to installing anything on
 your own machine — if you'd rather work locally instead, see
 [LOCAL_SETUP.md](LOCAL_SETUP.md).
 
-All you need is a GitHub account and a browser.
+## Prerequisites
+
+- A **GitHub account** — free, sign up at
+  [github.com/join](https://github.com/join) if you don't already have
+  one. Codespaces is tied to your account, so this isn't optional.
+- A browser. That's genuinely it — nothing to install.
 
 ## Step 1 — get your own copy
 
