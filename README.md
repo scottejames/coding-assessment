@@ -4,23 +4,42 @@
 
 # Coding Assessment
 
-Welcome! This repo is the index for our take-home coding assessment. Each
-problem lives in its own repository (linked below) — this page just tells
-you what to expect, in what order to tackle things, and how to get set
-up.
+Welcome! This repo is the index for our coding assessment — this page
+tells you what to expect and how to get set up. Each actual problem
+lives in its own repository, linked below.
 
-You'll pick **one problem at a time**, work through it in **either
-Python or Java** (your choice — both are graded identically), and end up
-pushing your solution to a repository of your own. Nothing here needs to
-be installed or cloned by itself; jump straight to the problem repo
-you've been asked to start with.
+**You'll be attempting one problem, not all of them.** Take a few
+minutes to read it through properly and think about how you'd approach
+it before you start typing anything — then have a go. There's no strict
+time limit, but out of respect for your time, please don't spend more
+than about an hour on it.
+
+These problems are intended to be hard, on purpose. Submitting something
+that doesn't fully pass is completely fine, and expected — we're
+interested in how you think and how far you get, not just a final green
+tick. Push whatever you have when you're done, working or not.
+
+If you get stuck early on and it's just not clicking, feel free to
+switch to a different problem from the list below rather than grinding
+on the same one. And if you genuinely enjoy this and want to keep going
+afterwards, the rest are here for you to try — but there's no
+expectation that you will.
+
+**Please don't use AI tools (ChatGPT, Copilot, Claude, or similar) to
+write this for you.** As part of the interview process we'll go through
+your code together and ask about the choices you made — if you didn't
+write it yourself, that conversation is going to be a difficult one.
+
+You'll work in **either Python or Java** (your choice — both are graded
+identically), and push your solution to a repository of your own — see
+below for exactly how.
 
 ---
 
 ## The problems
 
-Work through these roughly in this order — they're arranged from
-warm-up to hardest.
+Here's the full set, roughly ordered from warm-up to hardest. Remember —
+you only need to attempt one.
 
 | # | Problem | Difficulty | What it's really testing |
 |---|---|---|---|
@@ -36,9 +55,9 @@ A couple of things worth knowing going in:
   problem.** Every problem is solvable by reasoning carefully from the
   spec and your own test results — the point is to see how you *get*
   there, not whether you memorised the right algorithm name in advance.
-- **The first two are deliberately easier.** A clean pass there is a good
-  sign, not a high bar — don't read too much into how fast you finish
-  them. The real signal is in problems 3–5.
+- **They get progressively harder.** If you've been pointed at one of
+  the later ones, struggling is normal and expected — that's exactly
+  why they're calibrated this way, not a sign you've picked wrong.
 - Every problem repo is self-contained and has its own `README.md` with
   the actual problem statement, constraints, and a worked example, plus
   an `EXAMPLE.md` with a slower, step-by-step walkthrough. Start there.
@@ -251,5 +270,6 @@ window works just as well.
 
 ---
 
-Good luck! Start with [Pair the Numbers](https://github.com/scottejames/pair-the-numbers-starter)
-if you're not sure where to begin.
+Good luck! If you haven't been pointed at a specific problem, [Pair the
+Numbers](https://github.com/scottejames/pair-the-numbers-starter) is the
+gentlest place to start.
