@@ -67,6 +67,32 @@ A couple of things worth knowing going in:
   the actual problem statement, constraints, and a worked example, plus
   an `EXAMPLE.md` with a slower, step-by-step walkthrough. Start there.
 
+### Finding a repo directly
+
+Every problem's starter repo follows the same URL pattern, if you ever
+want to type or navigate to one directly instead of clicking a link
+above:
+
+```
+https://github.com/scottejames/<problem-slug>-starter
+```
+
+The `<problem-slug>` is just the problem's name, lowercased, with
+spaces swapped for hyphens:
+
+| Problem | Slug | URL |
+|---|---|---|
+| Pair the Numbers | `pair-the-numbers` | `github.com/scottejames/pair-the-numbers-starter` |
+| Split the Playlist | `split-the-playlist` | `github.com/scottejames/split-the-playlist-starter` |
+| Escape the Vault | `escape-the-vault` | `github.com/scottejames/escape-the-vault-starter` |
+| Break the Cipher | `break-the-cipher` | `github.com/scottejames/break-the-cipher-starter` |
+| Bridge the Islands | `bridge-the-islands` | `github.com/scottejames/bridge-the-islands-starter` |
+
+The same pattern feeds straight into the Codespaces flow in
+[CODESPACES.md](CODESPACES.md) — add `/generate` to any URL above to
+jump straight to "create your own copy" for that problem, e.g.
+`github.com/scottejames/pair-the-numbers-starter/generate`.
+
 ---
 
 ## Getting set up
